@@ -1,4 +1,6 @@
-﻿using ChicagoArtWorkSite.Models;
+﻿using ChicagoArtWorkSite.Data;
+using ChicagoArtWorkSite.Models;
+using ChicagoArtWorkSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,9 +15,12 @@ namespace ChicagoArtWorkSite.Controllers
     {
         private readonly ILogger<GalleryController> _logger;
 
-        public GalleryController(ILogger<GalleryController> logger)
+        private readonly IRequestService _requestService;
+
+        public GalleryController(ILogger<GalleryController> logger, IRequestService requestService)
         {
             _logger = logger;
+            _requestService = requestService;
         }
 
         public IActionResult Index()
@@ -23,9 +28,11 @@ namespace ChicagoArtWorkSite.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
-            return View();
+            var test = await _requestService.GetRepos();
+            
+            return View(test);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,6 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@using Database.Entities
+@model IList<Artwork>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@foreach (var item in Model)
+{
+    <p>@item.Id</p>
+    <p>@item.API_Id</p>
+    <p>@item.Title</p>
+    <p>@item.Artist</p>
+}

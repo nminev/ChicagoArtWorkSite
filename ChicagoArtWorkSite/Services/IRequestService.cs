@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Database.Entities;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+
 
 namespace ChicagoArtWorkSite.Services
 {
     public interface IRequestService
     {
-        string GetAll();
+        Task<IList<Artwork>> GetRepos();
     }
 }

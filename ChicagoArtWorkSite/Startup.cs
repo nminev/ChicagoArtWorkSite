@@ -1,4 +1,5 @@
 using ChicagoArtWorkSite.Data;
+using ChicagoArtWorkSite.Services;
 using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,11 @@ namespace ChicagoArtWorkSite
         public void ConfigureServices(IServiceCollection services)
         {
             DatabaseStartUp.ConfigureServices(services, Configuration.GetConnectionString("DefaultConnection"));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddHttpClient<IRequestService, RequestService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +49,7 @@ namespace ChicagoArtWorkSite
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Gallery/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
