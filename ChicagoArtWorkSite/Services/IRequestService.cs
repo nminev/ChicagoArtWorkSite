@@ -7,6 +7,6 @@ namespace ChicagoArtWorkSite.Services
 {
     public interface IRequestService
     {
-
+        string GetAll();
     }
 }
