@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210728164256_AddingTables.cs" />
+    <Compile Remove="Migrations\20210728164256_AddingTables.Designer.cs" />
+    <Compile Remove="Migrations\20210728164550_AddingTables.cs" />
+    <Compile Remove="Migrations\20210728164550_AddingTables.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.17" />

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace ChicagoArtWorkSite.Controllers
 {
@@ -15,12 +16,12 @@ namespace ChicagoArtWorkSite.Controllers
     {
         private readonly ILogger<GalleryController> _logger;
 
-        private readonly IRequestService _requestService;
+        private readonly IArtsService _artService;
 
-        public GalleryController(ILogger<GalleryController> logger, IRequestService requestService)
+        public GalleryController(ILogger<GalleryController> logger, IArtsService artsService)
         {
             _logger = logger;
-            _requestService = requestService;
+            _artService = artsService;
         }
 
         public IActionResult Index()
@@ -28,11 +29,11 @@ namespace ChicagoArtWorkSite.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Privacy()
+        public async Task<IActionResult> Privacy(int page = 1)
         {
-            var test = await _requestService.GetRepos();
-            
-            return View(test);
+            var result = await _artService.GetArtworks(100);
+
+            return View(result.ToPagedList(page, pageSize: 12)); ;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

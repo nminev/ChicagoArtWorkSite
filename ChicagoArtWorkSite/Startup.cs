@@ -35,6 +35,8 @@ namespace ChicagoArtWorkSite
             services.AddRazorPages();
 
             services.AddHttpClient<IRequestService, RequestService>();
+
+            services.AddScoped<IArtsService, ArtsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +71,14 @@ namespace ChicagoArtWorkSite
                 endpoints.MapRazorPages();
             });
 
+            SeedData(serviceProvider).Wait();
             CreateRoles(serviceProvider).Wait();
+        }
+
+        private async Task SeedData(IServiceProvider serviceProvider)
+        {
+            var ArtsService = serviceProvider.GetRequiredService<IArtsService>();
+            await ArtsService.SeedData(102);
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)

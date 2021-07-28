@@ -15,13 +15,7 @@ namespace ChicagoArtWorkSite.Models
                 var result = new List<Artwork>();
                 foreach (var item in obj.data)
                 {
-                    var art = new Artwork()
-                    {
-                        API_Id = item.id,
-                        Title = item.title,
-                        Artist = item.artist_display
-                    };
-                    result.Add(art);
+                    result.Add(ToArtEntity(item));
                 }
                 return result;
             }
@@ -39,7 +33,8 @@ namespace ChicagoArtWorkSite.Models
                 {
                     API_Id = obj.id,
                     Title = obj.title,
-                    Artist = obj.artist_display
+                    Artist = obj.artist_display,
+                    Image_Id = obj.image_id,
                 };
             }
             catch (Exception ex)

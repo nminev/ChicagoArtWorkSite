@@ -1,10 +1,25 @@
-﻿@using Database.Entities
-@model IList<Artwork>
+﻿@using X.PagedList.Web.Common;
+@using X.PagedList.Mvc.Core;
+@using Database.Entities
+@using X.PagedList
+@model IPagedList<Artwork>
 
 @foreach (var item in Model)
 {
-    <p>@item.Id</p>
-    <p>@item.API_Id</p>
-    <p>@item.Title</p>
-    <p>@item.Artist</p>
+    <div>
+        <p>@item.Id</p>
+        <p>@item.API_Id</p>
+        <p>@item.Title</p>
+        <p>@item.Artist</p>
+        <img src="https://www.artic.edu/iiif/2/@item.Image_Id/full/300,/0/default.jpg" />
+    </div>
 }
+
+@Html.PagedListPager(Model, page => Url.Action("Privacy", new { page = page }),
+       new PagedListRenderOptions
+       {
+           DisplayItemSliceAndTotal = false,
+           ContainerDivClasses = new[] { "navigation" },
+           LiElementClasses = new[] { "page-item" },
+           PageClasses = new[] { "page-link" },
+       })

@@ -7,6 +7,6 @@ namespace ChicagoArtWorkSite.Services
 {
     public interface IRequestService
     {
-        Task<IList<Artwork>> GetRepos();
+        Task<IList<Artwork>> MakeRequestForArtWorks(int take);
     }
 }

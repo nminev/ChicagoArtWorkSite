@@ -5,7 +5,7 @@ using Database.Entities;
 using System.Threading.Tasks;
 using ChicagoArtWorkSite.Models;
 using System.Collections.Generic;
-
+using System.Text;
 
 namespace ChicagoArtWorkSite.Services
 {
@@ -19,9 +19,32 @@ namespace ChicagoArtWorkSite.Services
 
             Client = client;
         }
-        public async Task<IList<Artwork>> GetRepos()
+
+        public async Task<IList<Artwork>> MakeRequestForArtWorks(int take)
         {
-            var response = await Client.GetAsync("artworks");
+            List<Artwork> result = new List<Artwork>();
+
+            if (take > 100)
+            {
+                for (int i = 0; i < take / 100; i++)
+                {
+                    result.AddRange(await ExecuteRequestForArt(100));
+                }
+                if (take % 100 != 0)
+                {
+                    result.AddRange(await ExecuteRequestForArt(take % 100));
+                }
+            }
+            else
+            {
+                result.AddRange(await ExecuteRequestForArt(take));
+            }
+            return result;
+        }
+
+        private async Task<IList<Artwork>> ExecuteRequestForArt(int take)
+        {
+            var response = await Client.GetAsync($"artworks?limit={take}");
 
             response.EnsureSuccessStatusCode();
 
@@ -29,12 +52,7 @@ namespace ChicagoArtWorkSite.Services
 
             var responseObject = JsonConvert.DeserializeObject<dynamic>(resultString);
 
-            List<Artwork> test =  Mapper.ToArtEntityBulk(responseObject);
-
-           
-
-
-            return test;
+            return Mapper.ToArtEntityBulk(responseObject);
         }
     }
 }
