@@ -18,7 +18,7 @@ namespace Database.Entities
 
         public Artwork Artwork { get; set; }
 
-        public bool? ThumbsUp { get; set; }
+        public bool ThumbsUp { get; set; }
 
     }
 }

@@ -51,7 +51,7 @@ namespace ChicagoArtWorkSite.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool?>("ThumbsUp")
+                    b.Property<bool>("ThumbsUp")
                         .HasColumnType("bit");
 
                     b.HasKey("ArtworkId", "UserId");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210729142447_ChangingTypeOFLike")]
-    partial class ChangingTypeOFLike
+    [Migration("20210729181955_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,7 @@ namespace Database.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool?>("ThumbsUp")
+                    b.Property<bool>("ThumbsUp")
                         .HasColumnType("bit");
 
                     b.HasKey("ArtworkId", "UserId");

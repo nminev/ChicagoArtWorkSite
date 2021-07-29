@@ -1,4 +1,5 @@
 ﻿using ChicagoArtWorkSite.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,18 @@ namespace ChicagoArtWorkSite.Controllers.API
 
         // POST api/LikeController/1
         [HttpPost]
-        public async Task Post(bool like, int artworkID)
+        [Authorize]
+        public async Task<IActionResult> Post(bool like, int artworkID)
         {
             bool success = await _artService.AddOrUpdateLike(like, artworkID,HttpContext.User);
-            
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
 
         //// PUT api/<ValuesController>/5

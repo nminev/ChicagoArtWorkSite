@@ -16,7 +16,7 @@ namespace ChicagoArtWorkSite.Models
 
         public string Author { get; set; }
 
-        public bool? Like { get; set; }
+        public bool Like { get; set; }
 
         public string ImageSrc { get; set; }
     }

@@ -29,7 +29,7 @@ namespace ChicagoArtWorkSite.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Privacy(int page = 1)
+        public async Task<IActionResult> Gallery(int page = 1)
         {
             var result = await _artService.GetArtworks(100);
 

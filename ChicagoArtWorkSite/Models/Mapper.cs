@@ -47,10 +47,10 @@ namespace ChicagoArtWorkSite.Models
         internal static IList<GalleryViewModel> ToGalleryModelViewBulk(IQueryable<Artwork> result, IQueryable<Like> likes)
         {
             List<GalleryViewModel> galleryViewModels = new List<GalleryViewModel>();
-            bool? like = null;
+            bool? like = false;
             foreach (var art in result)
             {
-                if (like != null && likes.Any())
+                if (likes!=null && likes.Any())
                 {
                     like = likes.SingleOrDefault(x => x.ArtworkId == art.Id)?.ThumbsUp;
                 }
@@ -61,7 +61,7 @@ namespace ChicagoArtWorkSite.Models
                     ImageSrc = art.Image_Id,
                     Author = art.Artist,
                     Name = art.Title,
-                    Like = like,
+                    Like = like??false,
                 });
             }
 
