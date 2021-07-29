@@ -44,7 +44,7 @@ namespace ChicagoArtWorkSite.Services
 
         private async Task<IList<Artwork>> ExecuteRequestForArt(int take)
         {
-            var response = await Client.GetAsync($"artworks?limit={take}");
+            var response = await Client.GetAsync($"artworks?limit={take}&fields=id,title,artist_display,image_id");
 
             response.EnsureSuccessStatusCode();
 

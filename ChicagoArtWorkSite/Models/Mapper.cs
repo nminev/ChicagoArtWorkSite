@@ -43,5 +43,29 @@ namespace ChicagoArtWorkSite.Models
                 throw new ArgumentException("Error during response parsing with message: " + ex.Message);
             }
         }
+
+        internal static IList<GalleryViewModel> ToGalleryModelViewBulk(IQueryable<Artwork> result, IQueryable<Like> likes)
+        {
+            List<GalleryViewModel> galleryViewModels = new List<GalleryViewModel>();
+            bool? like = null;
+            foreach (var art in result)
+            {
+                if (like != null && likes.Any())
+                {
+                    like = likes.SingleOrDefault(x => x.ArtworkId == art.Id)?.ThumbsUp;
+                }
+
+                galleryViewModels.Add(new GalleryViewModel
+                {
+                    ID = art.Id,
+                    ImageSrc = art.Image_Id,
+                    Author = art.Artist,
+                    Name = art.Title,
+                    Like = like,
+                });
+            }
+
+            return galleryViewModels;
+        }
     }
 }

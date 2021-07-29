@@ -33,7 +33,9 @@ namespace ChicagoArtWorkSite.Controllers
         {
             var result = await _artService.GetArtworks(100);
 
-            return View(result.ToPagedList(page, pageSize: 12)); ;
+            var likes = await _artService.GetLikes(result.Select(x => x.Id), HttpContext.User);
+            IList<GalleryViewModel> test = Mapper.ToGalleryModelViewBulk(result, likes);
+            return View(test.ToPagedList(page, pageSize: 12)); ;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,17 +1,38 @@
 ﻿@using X.PagedList.Web.Common;
 @using X.PagedList.Mvc.Core;
-@using Database.Entities
 @using X.PagedList
-@model IPagedList<Artwork>
+@model IPagedList<GalleryViewModel>
 
 @foreach (var item in Model)
 {
-    <div>
-        <p>@item.Id</p>
-        <p>@item.API_Id</p>
-        <p>@item.Title</p>
-        <p>@item.Artist</p>
-        <img src="https://www.artic.edu/iiif/2/@item.Image_Id/full/300,/0/default.jpg" />
+    <div class="item-box" style="margin-bottom:50px">
+        <div class="product-item">
+            <div class="details">
+                <div class="product-title">Artwork Name: @item.Name</div>
+                <div class="product-title">Author: @item.Author</div>
+            </div>
+            <div class="picture">
+                @if (item.ImageSrc != null)
+                {
+                    <img src="https://www.artic.edu/iiif/2/@item.ImageSrc/full/300,/0/default.jpg" alt="Product">
+                }
+                else
+                {
+                    <img width="300" height="533" src="/missingImage.png" alt="Product">
+                }
+            </div>
+        </div>
+        <div>
+            @if (item.Like == null || item.Like == false)
+            {
+                <a href="javascript:void(0)" class="like" data-id="@item.ID">Like</a>
+            }
+            else
+            {
+                <a href="javascript:void(0)" class="unlike" data-id="@item.ID">UnLike</a>
+
+            }
+        </div>
     </div>
 }
 
@@ -23,3 +44,41 @@
            LiElementClasses = new[] { "page-item" },
            PageClasses = new[] { "page-link" },
        })
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        //LIKE
+        $(document).on("click", "a.like", function () {
+            var id = $(this).data("id");
+            var link = "https://localhost:44395/api/Like/?artworkId=" + id + "&like=true";
+            var a = $(this);
+            $.ajax({
+                type: "POST",
+                url: link,
+                success: function (result) {
+                    a.html("unlike");
+                    a.removeClass("like").addClass("unlike")
+                }
+            });
+        });
+        //UNLIKE
+        $(document).on("click", "a.unlike", function () {
+            var id = $(this).data("id");
+            console.log(id);
+            var link = "https://localhost:44395/api/Like/?artworkId=" + id + "&like=false";
+            console.log(link);
+            var a = $(this);
+            console.log(a);
+            $.ajax({
+                type: "POST",
+                url: link,
+                success: function (result) {
+                    a.html("like");
+                    a.removeClass("unlike").addClass("like")
+                }
+            });
+        });
+
+    });
+</script>
