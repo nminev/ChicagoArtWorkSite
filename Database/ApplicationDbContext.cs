@@ -17,7 +17,8 @@ namespace Database
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            //Database.EnsureCreated();
+            //comment this out for migrations
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
