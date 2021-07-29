@@ -35,12 +35,5 @@ namespace ChicagoArtWorkSite.Controllers.API
                 return StatusCode(500);
             }
         }
-
-        //// PUT api/<ValuesController>/5
-        //[HttpPut]
-        //public async Task Put(bool like, int artworkID)
-        //{
-        //    bool success = await _artService.AddOrUpdateLike(like, artworkID, HttpContext.User);
-        //}
     }
 }

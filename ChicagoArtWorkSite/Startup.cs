@@ -79,6 +79,8 @@ namespace ChicagoArtWorkSite
             await ArtsService.SeedData(102);
         }
 
+
+        //created roles, so that only the admin could export to xlsx or could make special queries to the API, but didnt have time for all that fancy stuff at the end.
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
             //initializing custom roles 
